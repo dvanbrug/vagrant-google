@@ -388,6 +388,9 @@ module VagrantPlugins
         # Default IAM service account
         @service_account = nil if @service_account == UNSET_VALUE
 
+        # Default Setup WinRM Password
+        @setup_winrm_password = false if @setup_winrm_password == UNSET_VALUE
+
         # Config option service_accounts is deprecated
         if @service_accounts
           @scopes = @service_accounts
