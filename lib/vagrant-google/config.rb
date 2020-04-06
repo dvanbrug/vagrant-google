@@ -178,7 +178,7 @@ module VagrantPlugins
       # @return [Array<Hash>]
       attr_accessor :additional_disks
 
-      # (Optional - requrired for WinRM to work on Google Windows images) 
+      # (Optional - Override default WinRM setup before for Public Windows images)
       #
       # @return [Boolean]
       attr_accessor :setup_winrm_password
@@ -389,7 +389,7 @@ module VagrantPlugins
         @service_account = nil if @service_account == UNSET_VALUE
 
         # Default Setup WinRM Password
-        @setup_winrm_password = false if @setup_winrm_password == UNSET_VALUE
+        @setup_winrm_password = nil if @setup_winrm_password == UNSET_VALUE
 
         # Config option service_accounts is deprecated
         if @service_accounts

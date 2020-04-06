@@ -81,7 +81,7 @@ module VagrantPlugins
           b.use ReadSSHInfo
         end
       end
-      
+
       # This action is called to setup the Windows user/password on the machine.
       def self.action_setup_winrm_password
         Vagrant::Action::Builder.new.tap do |b|

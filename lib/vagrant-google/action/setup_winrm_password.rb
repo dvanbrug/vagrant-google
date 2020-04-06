@@ -38,7 +38,6 @@ module VagrantPlugins
         end
 
         def setup_password(env, instance, zone, user)
-
           # Setup
           compute = env[:google_compute]
           server = compute.servers.get(instance, zone)
@@ -46,7 +45,7 @@ module VagrantPlugins
 
           env[:ui].info("Temp Password: #{password}")
 
-          return password
+          password
         end
 
         def call(env)
@@ -70,8 +69,8 @@ module VagrantPlugins
           env[:ui].info("Changing password from temporary to winrm password")
           winrmcomm = VagrantPlugins::CommunicatorWinRM::Communicator.new(env[:machine])
           cmd = "net user #{user} #{pass}"
-          opts = {elevated: true}
-          output = winrmcomm.test(cmd,opts)
+          opts = { elevated: true }
+          winrmcomm.test(cmd, opts)
 
           # Update WinRM password to reflect updated one
           env[:machine].config.winrm.password = pass

@@ -288,7 +288,18 @@ module VagrantPlugins
             env[:interrupted] = true
           end
 
-          if zone_config.setup_winrm_password
+          # Parse out the image project in case it was not set
+          # and check if it is part of a public windows project
+          img_project = image.split("/")[6]
+          is_windows_image = img_project.eql?("windows-cloud") || img_project.eql?("windows-sql-cloud")
+
+          # Reset the password if a windows image unless flag overrides
+          setup_winrm_password = zone_config.setup_winrm_password
+          if setup_winrm_password.nil? && is_windows_image
+            setup_winrm_password = true
+          end
+
+          if setup_winrm_password
             env[:ui].info("Setting up WinRM Password")
             env[:action_runner].run(Action.action_setup_winrm_password, env)
           end
